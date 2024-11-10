@@ -19,10 +19,8 @@ jobs:
           terraform_wrapper: true
 
       - name: Zip Lambda Function
-        run: |
-          cd infra
-          zip lambda_function.zip lambda_function.py
-          cd ..
+        working-directory: infra
+        run: zip lambda_function.zip lambda_function.py
 
       - name: Terraform Init
         run: terraform init
