@@ -1,5 +1,9 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
+}
+
+variable "region" {
+  default = "us-east-1"
 }
 
 # S3 Bucket for Static Website
@@ -16,29 +20,25 @@ resource "aws_s3_bucket" "portfolio_bucket" {
 resource "aws_s3_bucket_object" "index" {
   bucket = aws_s3_bucket.portfolio_bucket.bucket
   key    = "index.html"
-  source = "index.html"
+  source = "../src/index.html"
   acl    = "public-read"
 }
 
 resource "aws_s3_bucket_object" "styles" {
   bucket = aws_s3_bucket.portfolio_bucket.bucket
   key    = "styles.css"
-  source = "styles.css"
+  source = "../src/styles.css"
   acl    = "public-read"
 }
 
 resource "aws_s3_bucket_object" "scripts" {
   bucket = aws_s3_bucket.portfolio_bucket.bucket
   key    = "scripts.js"
-  content = templatefile("scripts_template.js", {
+  content = templatefile("../src/scripts_template.js", {
     api_id = aws_api_gateway_rest_api.visitor_api.id
     region = var.region
   })
   acl    = "public-read"
-}
-
-variable "region" {
-  default = "us-east-1"
 }
 
 # DynamoDB Table for Visitor Counter
@@ -111,38 +111,6 @@ resource "aws_api_gateway_integration" "visitor_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.visitor_counter_lambda.invoke_arn
-}
-
-# CloudFront Distribution for S3 Bucket
-resource "aws_cloudfront_distribution" "cdn" {
-  origin {
-    domain_name = aws_s3_bucket.portfolio_bucket.bucket_regional_domain_name
-    origin_id   = "S3-Website"
-  }
-
-  enabled             = true
-  is_ipv6_enabled     = true
-  default_root_object = "index.html"
-
-  aliases = ["ggdevops.net"]  # Your custom domain
-
-  default_cache_behavior {
-    allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "S3-Website"
-    viewer_protocol_policy = "redirect-to-https"
-
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
-  }
-
-  viewer_certificate {
-    cloudfront_default_certificate = true
-  }
 }
 
 output "api_gateway_endpoint" {

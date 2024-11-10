@@ -1,0 +1,172 @@
+/* Reset and basic setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #333;
+    color: #f0f0f0;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.contact-info a {
+    color: #f0f0f0;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+.contact-info a:hover {
+    color: #03a9f4;
+}
+
+nav {
+    margin: 1rem 0;
+}
+
+nav a {
+    color: #bbb;
+    margin: 0 0.5rem;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #03a9f4;
+}
+
+/* Section styling */
+section {
+    padding: 2rem 4rem;
+    margin: 2rem auto;
+    max-width: 900px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+section h2 {
+    color: #03a9f4;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #03a9f4;
+    padding-bottom: 0.3rem;
+}
+
+#experience .job, #projects .project {
+    background: #333;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.job h3, .project h3 {
+    color: #03a9f4;
+}
+
+.job p, .project p {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.skills, .certifications {
+    margin: 1rem 0;
+}
+
+.skills p, .certifications p {
+    color: #03a9f4;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-top: 0.5rem;
+}
+
+form input, form textarea, form button {
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #03a9f4;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background-color: #0288d1;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #333;
+    color: #aaa;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #03a9f4;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #0288d1;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    section {
+        padding: 1.5rem 2rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+    }
+}
