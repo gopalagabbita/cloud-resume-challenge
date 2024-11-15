@@ -1,5 +1,8 @@
 name: destroy from AWS
 on:
+    push:
+        branches:
+            - main
 
 env:
  # Credentials for deployment to AWS
