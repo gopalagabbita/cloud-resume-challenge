@@ -9,6 +9,11 @@ variable "region" {
 # S3 Bucket for Static Website
 resource "aws_s3_bucket" "portfolio_bucket" {
   bucket = "ggdevops-portfolio"
+}
+
+# S3 Bucket ACL
+resource "aws_s3_bucket_acl" "portfolio_bucket_acl" {
+  bucket = aws_s3_bucket.portfolio_bucket.id
   acl    = "public-read"
 }
 
@@ -24,6 +29,7 @@ resource "aws_s3_bucket_website_configuration" "portfolio_website" {
     key = "error.html"
   }
 }
+
 
 # S3 Objects
 resource "aws_s3_object" "index" {
@@ -49,8 +55,6 @@ resource "aws_s3_object" "scripts" {
   })
   acl     = "public-read"
 }
-
-
 
 # DynamoDB Table for Visitor Counter
 resource "aws_dynamodb_table" "visitor_count" {
