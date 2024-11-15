@@ -1,0 +1,22 @@
+name: destroy from AWS
+
+on:
+
+jobs:
+    destroy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Setup Terrafrom
+              uses: hashicorp/setup-terraform@v1
+              with:
+                terraform-wrapper: true
+
+            - name: Terraform Destroy
+              run: terraform destroy -auto-approve
+              env:
+                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
