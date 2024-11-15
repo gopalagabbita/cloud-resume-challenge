@@ -53,12 +53,6 @@ resource "aws_s3_object" "scripts" {
   acl     = "public-read"
 }
 
-output "api_gateway_endpoint" {
-  value = "https://${aws_api_gateway_rest_api.visitor_api.id}.execute-api.${var.region}.amazonaws.com/visitor"
-  description = "The API Gateway endpoint for the visitor counter"
-}
-
-
 
 # DynamoDB Table for Visitor Counter
 resource "aws_dynamodb_table" "visitor_count" {
@@ -133,5 +127,6 @@ resource "aws_api_gateway_integration" "visitor_integration" {
 }
 
 output "api_gateway_endpoint" {
-  value = aws_api_gateway_rest_api.visitor_api.execution_arn
+  value = "https://${aws_api_gateway_rest_api.visitor_api.id}.execute-api.${var.region}.amazonaws.com/visitor"
+  description = "The API Gateway endpoint for the visitor counter"
 }
