@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(apiGatewayEndpoint)
         .then(response => response.json())
-        .then(responseData => {
-            document.getElementById("visitor-count").innerText = `Visitors: ${responseData.visitor_count}`;
+        .then((data) => {  // Use "data" instead of "responseData" to avoid confusion
+            document.getElementById("visitor-count").innerText = `Visitors: ${data.visitor_count}`;
         })
         .catch(error => console.error("Error fetching visitor count:", error));
 });
