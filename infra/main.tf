@@ -10,36 +10,47 @@ variable "region" {
 resource "aws_s3_bucket" "portfolio_bucket" {
   bucket = "ggdevops-portfolio"
   acl    = "public-read"
+}
 
-  website {
-    index_document = "index.html"
-    error_document = "error.html"
+# S3 Bucket Website Configuration
+resource "aws_s3_bucket_website_configuration" "portfolio_website" {
+  bucket = aws_s3_bucket.portfolio_bucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
   }
 }
 
-resource "aws_s3_bucket_object" "index" {
+# S3 Objects
+resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.portfolio_bucket.bucket
   key    = "index.html"
   source = "../src/index.html"
   acl    = "public-read"
 }
 
-resource "aws_s3_bucket_object" "styles" {
+resource "aws_s3_object" "styles" {
   bucket = aws_s3_bucket.portfolio_bucket.bucket
   key    = "styles.css"
   source = "../src/styles.css"
   acl    = "public-read"
 }
 
-resource "aws_s3_bucket_object" "scripts" {
-  bucket = aws_s3_bucket.portfolio_bucket.bucket
-  key    = "scripts.js"
+resource "aws_s3_object" "scripts" {
+  bucket  = aws_s3_bucket.portfolio_bucket.bucket
+  key     = "scripts.js"
   content = templatefile("../src/scripts_template.js", {
-    api_id = aws_api_gateway_rest_api.visitor_api.id
+    api_id = aws_api_gateway_rest_api.visitor_api.id,
     region = var.region
   })
-  acl    = "public-read"
+  acl     = "public-read"
 }
+
+
 
 # DynamoDB Table for Visitor Counter
 resource "aws_dynamodb_table" "visitor_count" {
