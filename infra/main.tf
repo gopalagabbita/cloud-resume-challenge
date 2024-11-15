@@ -49,12 +49,15 @@ resource "aws_s3_object" "styles" {
 resource "aws_s3_object" "scripts" {
   bucket  = aws_s3_bucket.portfolio_bucket.bucket
   key     = "scripts.js"
-  content = templatefile("../src/scripts_template.js", {
-    api_id = aws_api_gateway_rest_api.visitor_api.id,
-    region = var.region
-  })
+  source  = "../src/scripts.js"
   acl     = "public-read"
 }
+
+output "api_gateway_endpoint" {
+  value = "https://${aws_api_gateway_rest_api.visitor_api.id}.execute-api.${var.region}.amazonaws.com/visitor"
+  description = "The API Gateway endpoint for the visitor counter"
+}
+
 
 
 # DynamoDB Table for Visitor Counter

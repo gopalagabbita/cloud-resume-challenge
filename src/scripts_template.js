@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const apiGatewayEndpoint = "https://{{api_id}}.execute-api.{{region}}.amazonaws.com/visitor";
+    const apiGatewayEndpoint = "https://YOUR_API_GATEWAY_ID.execute-api.YOUR_REGION.amazonaws.com/visitor";
 
     fetch(apiGatewayEndpoint)
         .then(response => response.json())
