@@ -56,6 +56,7 @@ resource "aws_s3_object" "scripts" {
   acl     = "public-read"
 }
 
+
 # DynamoDB Table for Visitor Counter
 resource "aws_dynamodb_table" "visitor_count" {
   name         = "VisitorCount"
